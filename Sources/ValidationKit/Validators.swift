@@ -39,7 +39,7 @@ public extension Validator {
       if input.count >= length {
         return .valid(input)
       } else {
-        return .invalid(.tooShort(length))
+        return .invalid(.tooShort(minLength: length))
       }
     }
   }
@@ -50,7 +50,7 @@ public extension Validator {
       if input.count <= length {
         return .valid(input)
       } else {
-        return .invalid(.tooLong(length))
+        return .invalid(.tooLong(maxLength: length))
       }
     }
   }
@@ -61,7 +61,7 @@ public extension Validator {
       if input.count == length {
         return .valid(input)
       } else {
-        return .invalid(.notExactLength(length))
+        return .invalid(.notExactLength(exactLength: length))
       }
     }
   }
@@ -94,7 +94,7 @@ public extension Validator {
       if let option = options.first(where: { $0.0 == input }) {
         return .valid(option.1)
       } else {
-        return .invalid(.invalidOption(input))
+        return .invalid(.invalidOption(option: input))
       }
     }
   }
@@ -116,7 +116,7 @@ public extension Validator {
       if input.hasPrefix(prefix) {
         return .valid(input)
       } else {
-        return .invalid(.invalidPrefix(prefix))
+        return .invalid(.invalidPrefix(prefix: prefix))
       }
     }
   }

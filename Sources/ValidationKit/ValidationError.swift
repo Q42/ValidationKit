@@ -8,55 +8,56 @@
 
 import Foundation
 
-public enum ValidationError: Error, Equatable, Hashable, LocalizedError {
-  /// Value should be empty
-  case isEmpty
-  /// Value should not be empty
-  case notEmpty
-  /// Date value should be in the future
-  case dateInTheFuture
-  /// Value is too short
-  case tooShort(Int)
-  /// Value is too long
-  case tooLong(Int)
-  /// Value should be of an exact length
-  case notExactLength(Int)
-  /// Value has an invalid prefix
-  case invalidPrefix(String)
-  /// Value could not be parsed as a valid date
-  case invalidDate
-  /// Value is false
-  case notAccepted
-  /// Value is not a valid option
-  case invalidOption(String)
+public struct ValidationError: Error, Equatable, Hashable {
+  public let localizedDescription: String
 
-  public var errorDescription: String? {
-    switch self {
-    case .isEmpty:
-      return NSLocalizedString("is_empty", bundle: .module, comment: "Value should be empty")
-    case .notEmpty:
-      return NSLocalizedString("not_empty", bundle: .module, comment: "Value should not be empty")
-    case .dateInTheFuture:
-      return NSLocalizedString("date_in_future", bundle: .module, comment: "Date value should be in the future")
-    case .tooShort(let minLength):
-      let format = NSLocalizedString("too_short", bundle: .module, comment: "Value is too short")
-      return String(format: format, minLength)
-    case .tooLong(let maxLength):
-      let format = NSLocalizedString("too_long", bundle: .module, comment: "Value is too long")
-      return String(format: format, maxLength)
-    case .notExactLength(let exactLength):
-      let format = NSLocalizedString("not_exact_length", bundle: .module, comment: "Value should be of an exact length")
-      return String(format: format, exactLength)
-    case .invalidPrefix(let prefix):
-      let format = NSLocalizedString("invalid_prefix", bundle: .module, comment: "Value has an invalid prefix")
-      return String(format: format, prefix)
-    case .invalidDate:
-      return NSLocalizedString("invalid_date", bundle: .module, comment: "Value could not be parsed as a valid date")
-    case .notAccepted:
-      return NSLocalizedString("not_accepted", bundle: .module, comment: "Value is false")
-    case .invalidOption(let option):
-      let format = NSLocalizedString("invalid_option", bundle: .module, comment: "Value is not a valid option")
-      return String(format: format, option)
-    }
+  public init(localizedDescription: String) {
+    self.localizedDescription = localizedDescription
+  }
+}
+
+public extension ValidationError {
+  /// Value should be empty
+  static let isEmpty = ValidationError(localizedDescription: NSLocalizedString("is_empty", bundle: .module, comment: "Value should be empty"))
+
+  /// Value should not be empty
+  static let notEmpty = ValidationError(localizedDescription: NSLocalizedString("not_empty", bundle: .module, comment: "Value should not be empty"))
+
+  /// Date value should be in the future
+  static let dateInTheFuture = ValidationError(localizedDescription: NSLocalizedString("date_in_future", bundle: .module, comment: "Date value should be in the future"))
+
+  /// Value is too short
+  static func tooShort(minLength: Int) -> Self {
+    let format = NSLocalizedString("too_short", bundle: .module, comment: "Value is too short")
+    return ValidationError(localizedDescription: String(format: format, minLength))
+  }
+
+  /// Value is too long
+  static func tooLong(maxLength: Int) -> Self {
+    let format = NSLocalizedString("too_long", bundle: .module, comment: "Value is too long")
+    return ValidationError(localizedDescription: String(format: format, maxLength))
+  }
+
+  /// Value should be of an exact length
+  static func notExactLength(exactLength: Int) -> Self {
+    let format = NSLocalizedString("not_exact_length", bundle: .module, comment: "Value should be of an exact length")
+    return ValidationError(localizedDescription: String(format: format, exactLength))
+  }
+
+  /// Value has an invalid prefix
+  static func invalidPrefix(prefix: String) -> Self {
+    let format = NSLocalizedString("invalid_prefix", bundle: .module, comment: "Value has an invalid prefix")
+    return ValidationError(localizedDescription: String(format: format, prefix))
+  }
+  /// Value could not be parsed as a valid date
+  static let invalidDate = ValidationError(localizedDescription: NSLocalizedString("invalid_date", bundle: .module, comment: "Value could not be parsed as a valid date"))
+
+  /// Value is false
+  static let notAccepted = ValidationError(localizedDescription: NSLocalizedString("not_accepted", bundle: .module, comment: "Value is false"))
+
+  /// Value is not a valid option
+  static func invalidOption(option: String) -> Self {
+    let format = NSLocalizedString("invalid_option", bundle: .module, comment: "Value is not a valid option")
+    return ValidationError(localizedDescription: String(format: format, option))
   }
 }
