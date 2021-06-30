@@ -1,29 +1,42 @@
 # ValidationKit
 
-A Swift library for validating user input, for example in forms.
+A lightweight Swift library for validating user input, for example in forms.
 
 ## Usage
 
-Using the built in validators:
+### Using the built in validators
 
 ```swift
 import ValidationKit
 
-let tweetValidator: Validator = .notEmpty && .maxLength(1) && .maxLength(280)
+// Validators can be combined using the operators `&&` and `||`
+let tweetValidator: Validator = .notEmpty && .maxLength(280)
 
-let tweet = "hello world"
+let tweet = "Hello, world!"
 let result = tweetValidator.validate(input: tweet)
-result.isValid // true
 
 switch result {
 case .valid(let value):
   print("Tweet '\(value)' is valid")
 case .invalid(let error):
-  print(String(format: "Tweet dit not validate: %@", error.localizedDescription)
+  print(String(format: "Tweet did not validate: %@", error.localizedDescription))
 }
 ```
 
-Implementing a custom validator:
+The built-in validators are:
+
+* `isEmpty`: String must be empty
+* `notEmpty`: String must not be empty
+* `minLength(_ length: Int)`: String length must be greater than or equal...
+* `maxLength(_ length: Int)`: String length must be less than or equal...
+* `exactLength(_ length: Int)`: String length must be exactly...
+* `isDate(formatter: DateFormatter)`: String must be parsable as a date using the given formatter
+* `isInThePast`: Date must be in the past
+* `anyOf`: Value must be one of certain given options
+* `accepted`: Value must be boolean true
+* `hasPrefix`: String must have a certain prefix
+
+### Implementing a custom validator
 
 ```swift
 public extension Validator {
@@ -42,6 +55,9 @@ public extension Validator {
 public extension ValidationError {
   static let invalidDutchPostalCode = ValidationError(localizedDescription: NSLocalizedString("Invalid Dutch postal code", comment: "Validation error text"))
 }
+
+let postalCodeValidator: Validator = .notEmpty && .isDutchPostalCode
+let result = postalCodeValidator.validate(input: "2516 AH") // Equals ValidationResult.valid("2516 AH")
 ```
 
 ## Releases
