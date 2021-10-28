@@ -60,6 +60,13 @@ let postalCodeValidator: Validator = .notEmpty && .isDutchPostalCode
 let result = postalCodeValidator.validate(input: "2516 AH") // Equals ValidationResult.valid("2516 AH")
 ```
 
+### Internationalization
+
+This library contains localized strings for English and Dutch. Pull requests that add support for additional languages are welcome.
+
+If you desire a different error text for a certain validation, you must write your own validator and validation error. 
+See the files [Validators.swift](https://github.com/Q42/ValidationKit/blob/main/Sources/ValidationKit/Validators.swift) and [ValidationError.swift](https://github.com/Q42/ValidationKit/blob/main/Sources/ValidationKit/ValidationError.swift) for examples how to do this.
+
 ## Releases
 
  - 0.0.1 - 2021-03-28 - Initial public release
