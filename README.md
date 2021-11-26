@@ -4,7 +4,7 @@ A lightweight Swift library for validating user input, for example in forms.
 
 ## Usage
 
-### Using the built in validators
+### Example: Using the built in validators
 
 ```swift
 import ValidationKit
@@ -22,6 +22,27 @@ case .invalid(let error):
   print(String(format: "Tweet did not validate: %@", error.localizedDescription))
 }
 ```
+
+### Example: Using the @Validated property wrapper
+
+```swift
+struct Person {
+  @Validated(.notEmpty)
+  var name: String? = nil
+
+  @Validated(.notEmpty && .exactLength(6))
+  var dutchPostalCode: String? = nil
+}
+
+let person = Person(name: "Mathijs", dutchPostalCode: "8049BW")
+// Use the regular value of the property
+person.name // "Mathijs"
+// You can access the validation result by using the $ (wrapped value).
+person.$name.isValid // True
+person.$name.value // Gets the validated and normalized value, or nil if invalid.
+```
+
+## Validators
 
 The built-in validators are:
 
