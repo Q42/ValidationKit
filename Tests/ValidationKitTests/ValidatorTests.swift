@@ -94,10 +94,10 @@ final class ValidatorTests: XCTestCase {
   }
 
   func testErrorMessages() {
-    XCTAssertEqual(ValidationError.tooShort(5).errorDescription, "must be 5 or more characters long")
-    XCTAssertEqual(ValidationError.tooLong(5).errorDescription, "must be 5 or fewer characters long")
-    XCTAssertEqual(ValidationError.notExactLength(5).errorDescription, "must be exactly 5 characters long")
-    XCTAssertEqual(ValidationError.invalidPrefix("hoi").errorDescription, "must start with hoi")
-    XCTAssertEqual(ValidationError.invalidOption("hello").errorDescription, "invalid option hello")
+    XCTAssertEqual(ValidationError.tooShort(minLength: 5).localizedDescription, "must be 5 or more characters long")
+    XCTAssertEqual(ValidationError.tooLong(maxLength: 5).localizedDescription, "must be 5 or fewer characters long")
+    XCTAssertEqual(ValidationError.notExactLength(exactLength: 5).localizedDescription, "must be exactly 5 characters long")
+    XCTAssertEqual(ValidationError.invalidPrefix(prefix: "hoi").localizedDescription, "must start with hoi")
+    XCTAssertEqual(ValidationError.invalidOption(option: "hello").localizedDescription, "invalid option hello")
   }
 }
