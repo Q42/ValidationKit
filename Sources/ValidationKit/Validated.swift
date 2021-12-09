@@ -8,15 +8,15 @@
 import Foundation
 
 @propertyWrapper
-struct Validated<Input, Output> {
-  var wrappedValue: Input
+public struct Validated<Input, Output> {
+  public var wrappedValue: Input
   let validator: Validator<Input, Output>
 
-  var projectedValue: ValidationResult<Output> {
+  public var projectedValue: ValidationResult<Output> {
     validator.validate(input: wrappedValue)
   }
 
-  init(
+  public init(
     wrappedValue: Input,
     _ validator: Validator<Input, Output>
   ) {
