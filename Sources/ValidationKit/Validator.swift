@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Validates a piece of input data, and returns a result with either the validated value or a validation error.
+/// Validates a piece of input data, and returns a result with either the validated value or a ``ValidationError``.
 public struct Validator<Input, Output> {
   public typealias ValidationRule = (Input) -> ValidationResult<Output>
 
