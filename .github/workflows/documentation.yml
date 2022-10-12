@@ -20,23 +20,43 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Build job
   build:
-    runs-on: macos-latest
+    runs-on: macos-12
     steps:
-      - uses: swift-actions/setup-swift@v1
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Pages
-        uses: actions/configure-pages@v1
-      - name: Build DocC documentation
-        run: swift package --allow-writing-to-directory ./docs generate-documentation --target ValidationKit --transform-for-static-hosting --hosting-base-path ValidationKit --output-path ./docs
-      - name: Upload artifact
-        uses: mbernson/upload-pages-artifact@main
-        with:
-          path: ./docs
+        uses: actions/configure-pages@v2
+      - name: Build Documentation
+        run: |
+          xcodebuild docbuild \
+            -scheme ValidationKit \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath ../DerivedData
+      - name: Process Archive
+        run: |
+          mkdir _site
+          $(xcrun --find docc) process-archive \
+            transform-for-static-hosting ../DerivedData/Build/Products/Debug-iphoneos/ValidationKit.doccarchive \
+            --output-path _site \
+            --hosting-base-path /
+      - name: Create Custom index.html
+        run: |
+          rm _site/index.html
+          cat > _site/index.html <<- EOM
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta http-equiv="refresh" content="0; url='https://q42.github.io/ValidationKit/documentation/validationkit/'" />
+            </head>
+           <body>
+              <p>Please follow <a href="https://q42.github.io/ValidationKit/documentation/validationkit/">this link</a>.</p>
+            </body>
+          </html>
+          EOM
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v1
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages

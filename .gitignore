@@ -5,3 +5,5 @@
 xcuserdata/
 .swiftpm
 /docs
+/_site
+/DerivedData
