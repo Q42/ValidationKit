@@ -32,7 +32,7 @@ jobs:
       - name: Build DocC documentation
         run: swift package --allow-writing-to-directory ./docs generate-documentation --target ValidationKit --transform-for-static-hosting --hosting-base-path ValidationKit --output-path ./docs
       - name: Upload artifact
-        uses: mbernson/upload-pages-artifact@main
+        uses: actions/upload-pages-artifact@v1
         with:
           path: ./docs
 
