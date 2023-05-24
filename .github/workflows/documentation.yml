@@ -36,7 +36,7 @@ jobs:
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting ../DerivedData/Build/Products/Debug-iphoneos/ValidationKit.doccarchive \
             --output-path _site \
-            --hosting-base-path /
+            --hosting-base-path ValidationKit
       - name: Create Custom index.html
         run: |
           rm _site/index.html
