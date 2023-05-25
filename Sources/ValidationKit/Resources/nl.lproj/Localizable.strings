@@ -16,3 +16,4 @@
 "invalid_date" = "is geen geldige datum";
 "not_accepted" = "is niet geaccepteerd";
 "invalid_option" = "ongeldige optie %@";
+"invalid_email" = "ongeldig e-mailadres";
