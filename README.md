@@ -111,8 +111,9 @@ See the files [Validators.swift](https://github.com/Q42/ValidationKit/blob/main/
 
 ## Releases
 
- - 0.0.1 - 2021-03-28 - Initial public release
- - 0.0.0 - 2019-12-02 - Initial private version for a project at [Q42](http://q42.com)
+- 1.0.0 - 2023-05-25 - After more than two years since the public release, and having been used in multiple production projects, it is time for a 1.0 release!
+- 0.0.1 - 2021-03-28 - Initial public release
+- 0.0.0 - 2019-12-02 - Initial private version for a project at [Q42](http://q42.com)
 
 ## Licence & Credits
 
