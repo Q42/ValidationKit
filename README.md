@@ -1,6 +1,6 @@
 # ValidationKit
 
-A lightweight Swift library for validating user input, for example in forms.
+A lightweight Swift library for validating and normalizing user input, for example in forms.
 
 ## Usage
 
