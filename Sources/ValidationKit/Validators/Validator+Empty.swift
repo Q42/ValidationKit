@@ -7,14 +7,13 @@
 
 import Foundation
 
-public extension Validator {
+public extension Validator where Input == String?, Output == String {
   /// The value must be empty
   static var isEmpty: Validator<String?, String> {
     Validator<String?, String> { input in
-      let val = input?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
-
-      if val.isEmpty {
-        return .valid(val)
+      let input = input?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+      if input.isEmpty {
+        return .valid(input)
       } else {
         return .invalid(.isEmpty)
       }
@@ -24,7 +23,34 @@ public extension Validator {
   /// The value must not be empty
   static var notEmpty: Validator<String?, String> {
     Validator<String?, String> { input in
-      if let input = input?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), !input.isEmpty {
+      let input = input?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+      if !input.isEmpty {
+        return .valid(input)
+      } else {
+        return .invalid(.notEmpty)
+      }
+    }
+  }
+}
+
+public extension Validator where Input == String, Output == String {
+  /// The value must be empty
+  static var isEmpty: Validator<String, String> {
+    Validator<String, String> { input in
+      let input = input.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+      if input.isEmpty {
+        return .valid(input)
+      } else {
+        return .invalid(.isEmpty)
+      }
+    }
+  }
+
+  /// The value must not be empty
+  static var notEmpty: Validator<String, String> {
+    Validator<String, String> { input in
+      let input = input.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+      if !input.isEmpty {
         return .valid(input)
       } else {
         return .invalid(.notEmpty)
