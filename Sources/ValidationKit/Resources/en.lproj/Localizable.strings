@@ -16,3 +16,4 @@
 "invalid_date" = "is not a valid date";
 "not_accepted" = "is not accepted";
 "invalid_option" = "invalid option %@";
+"invalid_email" = "invalid e-mail address";
