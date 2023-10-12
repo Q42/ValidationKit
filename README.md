@@ -2,6 +2,11 @@
 
 A lightweight Swift library for validating and normalizing user input, for example in forms.
 
+## [Documentation](https://q42.github.io/ValidationKit/)
+
+Documentation for ValidationKit [can be found on GitHub Pages](https://q42.github.io/ValidationKit/). Documentation is written using DocC, 
+with a documentation catalog included inside the Swift package.
+
 ## Usage
 
 ### Using the built in validators
@@ -111,6 +116,7 @@ See the files [Validators.swift](https://github.com/Q42/ValidationKit/blob/main/
 
 ## Releases
 
+- 1.0.1 - 2023-10-12 - Added isEmpty/notEmpty validators for non-optional string types
 - 1.0.0 - 2023-05-25 - After more than two years since the public release, and having been used in multiple production projects, it is time for a 1.0 release!
 - 0.0.1 - 2021-03-28 - Initial public release
 - 0.0.0 - 2019-12-02 - Initial private version for a project at [Q42](http://q42.com)
