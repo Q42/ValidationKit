@@ -6,6 +6,7 @@ import PackageDescription
 let package = Package(
   name: "ValidationKit",
   defaultLocalization: "en",
+  platforms: [.macOS(.v10_15), .iOS(.v15), .tvOS(.v15), .macCatalyst(.v15), .watchOS(.v6)],
   products: [
     .library(name: "ValidationKit", targets: ["ValidationKit"]),
   ],
