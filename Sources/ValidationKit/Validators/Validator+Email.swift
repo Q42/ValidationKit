@@ -42,6 +42,7 @@ public extension Validator {
     }
   }
 }
+
 public extension ValidationError {
-  static let invalidEmail = ValidationError(localizedDescription: NSLocalizedString("invalid_email", comment: "Invalid e-mail address error"))
+  static let invalidEmail = ValidationError(localizedDescription: NSLocalizedString("invalid_email", bundle: .module, comment: "Invalid e-mail address error"))
 }
