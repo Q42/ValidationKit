@@ -116,6 +116,7 @@ See the files [Validators.swift](https://github.com/Q42/ValidationKit/blob/main/
 
 ## Releases
 
+- 1.1.0 - 2024-05-24 - Added email validator
 - 1.0.1 - 2023-10-12 - Added isEmpty/notEmpty validators for non-optional string types
 - 1.0.0 - 2023-05-25 - After more than two years since the public release, and having been used in multiple production projects, it is time for a 1.0 release!
 - 0.0.1 - 2021-03-28 - Initial public release
@@ -123,6 +124,6 @@ See the files [Validators.swift](https://github.com/Q42/ValidationKit/blob/main/
 
 ## Licence & Credits
 
-ValidationKit is written by [Mathijs Bernson](https://twitter.com/mathijsbernson) and [Tim van Steenis](https://github.com/timvansteenis).
+ValidationKit is written by [Mathijs Bernson](https://github.com/mbernson) and [Tim van Steenis](https://github.com/timvansteenis).
 
 It is available under the [MIT license](https://github.com/Q42/ValidationKit/blob/main/LICENSE), so feel free to use it in commercial and non-commercial projects.
