@@ -9,7 +9,7 @@
 import Foundation
 
 /// An error that occurs when input validation does not pass.
-public struct ValidationError: Error, LocalizedError, Equatable, Hashable {
+public struct ValidationError: Error, LocalizedError, Equatable, Hashable, Sendable {
   public let localizedDescription: String
   public var errorDescription: String? {
     localizedDescription

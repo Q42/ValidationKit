@@ -13,6 +13,8 @@ public enum ValidationResult<Value> {
   case invalid(ValidationError)
 }
 
+extension ValidationResult: Sendable where Value: Sendable {}
+
 public extension ValidationResult {
   /// The validation error, or nil if the value is valid
   var error: ValidationError? {
