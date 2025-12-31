@@ -1,13 +1,14 @@
-import XCTest
+import Testing
 import ValidationKit
 
-class AcceptedTests: XCTestCase {
-  func testAccepted() {
+@Suite("Accepted Validator Tests")
+struct AcceptedTests {
+  @Test func testAccepted() {
     let validator = Validator<Bool, Bool>.accepted
 
-    XCTAssertFalse(validator.validate(input: false).isValid)
-    XCTAssertTrue(validator.validate(input: true).isValid)
+    #expect(validator.validate(input: false).isValid == false, "False value should not be accepted")
+    #expect(validator.validate(input: true).isValid == true, "True value should be accepted")
 
-    XCTAssertEqual(validator.validate(input: true).value, true)
+    #expect(validator.validate(input: true).value == true, "Accepted value should return true")
   }
 }

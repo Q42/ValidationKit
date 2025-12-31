@@ -1,19 +1,21 @@
-import XCTest
+import Testing
 import ValidationKit
 
-class StringTests: XCTestCase {
+@Suite("String Validator Tests")
+struct StringTests {
+  @Test("Prefix validation")
   func testHasPrefix() {
     let validator = Validator<String, String>.hasPrefix("42")
 
     // Invalid
-    XCTAssertFalse(validator.validate(input: "").isValid)
-    XCTAssertFalse(validator.validate(input: "hello").isValid)
+    #expect(validator.validate(input: "").isValid == false, "Empty string should be invalid")
+    #expect(validator.validate(input: "hello").isValid == false, "String without prefix should be invalid")
 
     // Valid
-    XCTAssertEqual(validator.validate(input: "4200").value, "4200")
-    XCTAssertEqual(validator.validate(input: "42").value, "42")
+    #expect(validator.validate(input: "4200").value == "4200", "String with prefix should return the original value")
+    #expect(validator.validate(input: "42").value == "42", "String exactly matching prefix should return the original value")
 
     // Error message
-    XCTAssertEqual(ValidationError.invalidPrefix(prefix: "hoi").localizedDescription, "must start with hoi")
+    #expect(ValidationError.invalidPrefix(prefix: "hoi").localizedDescription == "must start with hoi", "Error message should contain the required prefix")
   }
 }
