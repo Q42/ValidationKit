@@ -1,8 +1,8 @@
 @testable import ValidationKit
-import XCTest
+import Testing
 
-class AllRuleTests: XCTestCase {
-    func testAllRuleCollectsMultipleErrors() {
+struct AllRuleTests {
+    @Test func collectsMultipleErrors() {
         let rule = AllRule<String>(rules: [
             NotEmptyRule(),
             MinLengthRule(length: 8),
@@ -10,12 +10,12 @@ class AllRuleTests: XCTestCase {
         ])
 
         let result = rule.validate("")
-        XCTAssertFalse(result.isValid)
+        #expect(!result.isValid)
         // NotEmpty, MinLength, and Email should all fail
-        XCTAssertEqual(result.errors.count, 3)
+        #expect(result.errors.count == 3)
     }
 
-    func testAllRulePartialErrors() {
+    @Test func partialErrors() {
         let rule = AllRule<String>(rules: [
             NotEmptyRule(),
             MinLengthRule(length: 8),
@@ -23,33 +23,33 @@ class AllRuleTests: XCTestCase {
         ])
 
         let result = rule.validate("ab")
-        XCTAssertFalse(result.isValid)
+        #expect(!result.isValid)
         // NotEmpty passes, MinLength fails, Email fails
-        XCTAssertEqual(result.errors.count, 2)
+        #expect(result.errors.count == 2)
     }
 
-    func testAllRuleAllPass() {
+    @Test func allPass() {
         let rule = AllRule<String>(rules: [
             NotEmptyRule(),
             MinLengthRule(length: 3),
         ])
 
         let result = rule.validate("hello")
-        XCTAssertTrue(result.isValid)
-        XCTAssertEqual(result.value, "hello")
-        XCTAssertTrue(result.errors.isEmpty)
+        #expect(result.isValid)
+        #expect(result.value == "hello")
+        #expect(result.errors.isEmpty)
     }
 
-    func testAllRuleDotSyntax() {
+    @Test func dotSyntax() {
         let rule: AllRule<String> = .all(.notEmpty, .minLength(8), .email)
 
         let result = rule.validate("ab")
-        XCTAssertFalse(result.isValid)
-        XCTAssertEqual(result.errors.count, 2)
+        #expect(!result.isValid)
+        #expect(result.errors.count == 2)
     }
 
-    func testAllRuleEmptyRules() {
+    @Test func emptyRules() {
         let rule = AllRule<String>(rules: [])
-        XCTAssertTrue(rule.validate("anything").isValid)
+        #expect(rule.validate("anything").isValid)
     }
 }

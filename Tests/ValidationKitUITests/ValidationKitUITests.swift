@@ -1,48 +1,48 @@
 @testable import ValidationKit
 @testable import ValidationKitUI
-import XCTest
+import Testing
 
 @MainActor
-class FieldValidationTests: XCTestCase {
-    func testValidateImmediate() {
+struct FieldValidationTests {
+    @Test func validateImmediate() {
         let field = FieldValidation(EmailRule())
 
-        XCTAssertNil(field.result)
+        #expect(field.result == nil)
 
         let result = field.validate("test@example.com")
-        XCTAssertTrue(result.isValid)
-        XCTAssertTrue(field.result?.isValid == true)
+        #expect(result.isValid)
+        #expect(field.result?.isValid == true)
     }
 
-    func testValidateInvalid() {
+    @Test func validateInvalid() {
         let field = FieldValidation(EmailRule())
 
         let result = field.validate("not-an-email")
-        XCTAssertFalse(result.isValid)
-        XCTAssertFalse(field.result?.isValid == true)
+        #expect(!result.isValid)
+        #expect(field.result?.isValid != true)
     }
 
-    func testClear() {
+    @Test func clear() {
         let field = FieldValidation(EmailRule())
         field.validate("not-an-email")
 
-        XCTAssertNotNil(field.result)
+        #expect(field.result != nil)
         field.clear()
-        XCTAssertNil(field.result)
+        #expect(field.result == nil)
     }
 
-    func testFieldValidationWithAllRule() {
+    @Test func fieldValidationWithAllRule() {
         let field = FieldValidation(AllRule<String>.all(.notEmpty, .minLength(8), .email))
 
         let result = field.validate("ab")
-        XCTAssertFalse(result.isValid)
-        XCTAssertEqual(result.errors.count, 2)
+        #expect(!result.isValid)
+        #expect(result.errors.count == 2)
     }
 }
 
 @MainActor
-class FormValidationTests: XCTestCase {
-    func testValidateAllSuccess() {
+struct FormValidationTests {
+    @Test func validateAllSuccess() {
         let form = FormValidation()
         let emailField = FieldValidation(EmailRule())
         let nameField = FieldValidation(NotEmptyRule())
@@ -50,12 +50,12 @@ class FormValidationTests: XCTestCase {
         form.register(emailField) { "test@example.com" }
         form.register(nameField) { "John" }
 
-        XCTAssertFalse(form.didAttemptSubmit)
-        XCTAssertTrue(form.validateAll())
-        XCTAssertTrue(form.didAttemptSubmit)
+        #expect(!form.didAttemptSubmit)
+        #expect(form.validateAll())
+        #expect(form.didAttemptSubmit)
     }
 
-    func testValidateAllFailure() {
+    @Test func validateAllFailure() {
         let form = FormValidation()
         let emailField = FieldValidation(EmailRule())
         let nameField = FieldValidation(NotEmptyRule())
@@ -63,16 +63,16 @@ class FormValidationTests: XCTestCase {
         form.register(emailField) { "not-an-email" }
         form.register(nameField) { "" }
 
-        XCTAssertFalse(form.validateAll())
-        XCTAssertTrue(form.didAttemptSubmit)
+        #expect(!form.validateAll())
+        #expect(form.didAttemptSubmit)
     }
 
-    func testReset() {
+    @Test func reset() {
         let form = FormValidation()
         form.validateAll()
 
-        XCTAssertTrue(form.didAttemptSubmit)
+        #expect(form.didAttemptSubmit)
         form.reset()
-        XCTAssertFalse(form.didAttemptSubmit)
+        #expect(!form.didAttemptSubmit)
     }
 }

@@ -1,36 +1,36 @@
 @testable import ValidationKit
-import XCTest
+import Testing
 
-class ValidationResultTests: XCTestCase {
-    func testValidResult() {
+struct ValidationResultTests {
+    @Test func validResult() {
         let result = ValidationResult<String>.valid("hello")
 
-        XCTAssertTrue(result.isValid)
-        XCTAssertEqual(result.value, "hello")
-        XCTAssertTrue(result.errors.isEmpty)
+        #expect(result.isValid)
+        #expect(result.value == "hello")
+        #expect(result.errors.isEmpty)
     }
 
-    func testInvalidResultSingleError() {
+    @Test func invalidResultSingleError() {
         let result = ValidationResult<String>.invalid(.notEmpty)
 
-        XCTAssertFalse(result.isValid)
-        XCTAssertNil(result.value)
-        XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first, .notEmpty)
+        #expect(!result.isValid)
+        #expect(result.value == nil)
+        #expect(result.errors.count == 1)
+        #expect(result.errors.first == .notEmpty)
     }
 
-    func testInvalidResultMultipleErrors() {
+    @Test func invalidResultMultipleErrors() {
         let result = ValidationResult<String>.invalid([.notEmpty, .invalidEmail])
 
-        XCTAssertFalse(result.isValid)
-        XCTAssertNil(result.value)
-        XCTAssertEqual(result.errors.count, 2)
+        #expect(!result.isValid)
+        #expect(result.value == nil)
+        #expect(result.errors.count == 2)
     }
 
-    func testConvenienceSingleError() {
+    @Test func convenienceSingleError() {
         let result = ValidationResult<String>.invalid(.invalidEmail)
 
-        XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first, .invalidEmail)
+        #expect(result.errors.count == 1)
+        #expect(result.errors.first == .invalidEmail)
     }
 }

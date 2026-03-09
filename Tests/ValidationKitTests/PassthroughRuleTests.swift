@@ -1,17 +1,17 @@
 @testable import ValidationKit
-import XCTest
+import Testing
 
-class PassthroughRuleTests: XCTestCase {
-    func testPassthroughAlwaysPasses() {
+struct PassthroughRuleTests {
+    @Test func passthroughAlwaysPasses() {
         let rule = PassthroughRule<String>()
 
-        XCTAssertTrue(rule.validate("").isValid)
-        XCTAssertTrue(rule.validate("anything").isValid)
-        XCTAssertEqual(rule.validate("hello").value, "hello")
+        #expect(rule.validate("").isValid)
+        #expect(rule.validate("anything").isValid)
+        #expect(rule.validate("hello").value == "hello")
     }
 
-    func testDotSyntax() {
+    @Test func dotSyntax() {
         let rule: PassthroughRule<String> = .none
-        XCTAssertTrue(rule.validate("anything").isValid)
+        #expect(rule.validate("anything").isValid)
     }
 }

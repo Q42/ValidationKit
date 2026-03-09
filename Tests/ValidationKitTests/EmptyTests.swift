@@ -1,37 +1,37 @@
 @testable import ValidationKit
-import XCTest
+import Testing
 
-class EmptyTests: XCTestCase {
-    func testIsEmpty() {
+struct EmptyTests {
+    @Test func isEmpty() {
         let rule = IsEmptyRule()
 
         // Valid
-        XCTAssertEqual(rule.validate("").value, "")
-        XCTAssertEqual(rule.validate(" ").value, "")
+        #expect(rule.validate("").value == "")
+        #expect(rule.validate(" ").value == "")
 
         // Invalid
-        XCTAssertFalse(rule.validate("eerste etage").isValid)
-        XCTAssertFalse(rule.validate("F").isValid)
+        #expect(!rule.validate("eerste etage").isValid)
+        #expect(!rule.validate("F").isValid)
     }
 
-    func testNotEmpty() {
+    @Test func notEmpty() {
         let rule = NotEmptyRule()
 
         // Valid
-        XCTAssertEqual(rule.validate("eerste etage").value, "eerste etage")
-        XCTAssertEqual(rule.validate(" F").value, "F")
-        XCTAssertEqual(rule.validate("F ").value, "F")
+        #expect(rule.validate("eerste etage").value == "eerste etage")
+        #expect(rule.validate(" F").value == "F")
+        #expect(rule.validate("F ").value == "F")
 
         // Invalid
-        XCTAssertFalse(rule.validate("").isValid)
-        XCTAssertFalse(rule.validate(" ").isValid)
+        #expect(!rule.validate("").isValid)
+        #expect(!rule.validate(" ").isValid)
     }
 
-    func testDotSyntax() {
+    @Test func dotSyntax() {
         let isEmpty: some ValidationRule<String, String> = .isEmpty
-        XCTAssertTrue(isEmpty.validate("").isValid)
+        #expect(isEmpty.validate("").isValid)
 
         let notEmpty: some ValidationRule<String, String> = .notEmpty
-        XCTAssertTrue(notEmpty.validate("hello").isValid)
+        #expect(notEmpty.validate("hello").isValid)
     }
 }

@@ -1,61 +1,61 @@
 @testable import ValidationKit
-import XCTest
+import Testing
 
-class LengthTests: XCTestCase {
-    func testMinLength() {
+struct LengthTests {
+    @Test func minLength() {
         let rule = MinLengthRule(length: 5)
 
         // Invalid
-        XCTAssertFalse(rule.validate("").isValid)
-        XCTAssertFalse(rule.validate("hoi").isValid)
-        XCTAssertNil(rule.validate("").value)
+        #expect(!rule.validate("").isValid)
+        #expect(!rule.validate("hoi").isValid)
+        #expect(rule.validate("").value == nil)
 
         // Valid
-        XCTAssertTrue(rule.validate("hello").isValid)
-        XCTAssertTrue(rule.validate("this is a test").isValid)
+        #expect(rule.validate("hello").isValid)
+        #expect(rule.validate("this is a test").isValid)
 
         // Error message
-        XCTAssertEqual(ValidationError.tooShort(minLength: 5).localizedDescription, "must be 5 or more characters long")
+        #expect(ValidationError.tooShort(minLength: 5).localizedDescription == "must be 5 or more characters long")
     }
 
-    func testMaxLength() {
+    @Test func maxLength() {
         let rule = MaxLengthRule(length: 5)
 
         // Invalid
-        XCTAssertFalse(rule.validate("hello world").isValid)
-        XCTAssertFalse(rule.validate("this is a test").isValid)
+        #expect(!rule.validate("hello world").isValid)
+        #expect(!rule.validate("this is a test").isValid)
 
         // Valid
-        XCTAssertTrue(rule.validate("hello").isValid)
-        XCTAssertTrue(rule.validate("123").isValid)
+        #expect(rule.validate("hello").isValid)
+        #expect(rule.validate("123").isValid)
 
         // Error message
-        XCTAssertEqual(ValidationError.tooLong(maxLength: 5).localizedDescription, "must be 5 or fewer characters long")
+        #expect(ValidationError.tooLong(maxLength: 5).localizedDescription == "must be 5 or fewer characters long")
     }
 
-    func testExactLength() {
+    @Test func exactLength() {
         let rule = ExactLengthRule(length: 10)
 
         // Invalid
-        XCTAssertFalse(rule.validate("").isValid)
-        XCTAssertFalse(rule.validate("hello").isValid)
-        XCTAssertFalse(rule.validate("this is only a test").isValid)
+        #expect(!rule.validate("").isValid)
+        #expect(!rule.validate("hello").isValid)
+        #expect(!rule.validate("this is only a test").isValid)
 
         // Valid
-        XCTAssertTrue(rule.validate("helloworld").isValid)
+        #expect(rule.validate("helloworld").isValid)
 
         // Error message
-        XCTAssertEqual(ValidationError.notExactLength(exactLength: 5).localizedDescription, "must be exactly 5 characters long")
+        #expect(ValidationError.notExactLength(exactLength: 5).localizedDescription == "must be exactly 5 characters long")
     }
 
-    func testDotSyntax() {
+    @Test func dotSyntax() {
         let min: some ValidationRule<String, String> = .minLength(3)
-        XCTAssertTrue(min.validate("hello").isValid)
+        #expect(min.validate("hello").isValid)
 
         let max: some ValidationRule<String, String> = .maxLength(3)
-        XCTAssertTrue(max.validate("hi").isValid)
+        #expect(max.validate("hi").isValid)
 
         let exact: some ValidationRule<String, String> = .exactLength(3)
-        XCTAssertTrue(exact.validate("hey").isValid)
+        #expect(exact.validate("hey").isValid)
     }
 }

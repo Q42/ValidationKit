@@ -1,8 +1,8 @@
 @testable import ValidationKit
-import XCTest
+import Testing
 
-class SelectionTests: XCTestCase {
-    func testAnyOf() {
+struct SelectionTests {
+    @Test func anyOf() {
         let rule = AnyOfRule(options: [
             ("a", "Option A"),
             ("b", "Option B"),
@@ -10,20 +10,20 @@ class SelectionTests: XCTestCase {
         ])
 
         // Invalid
-        XCTAssertFalse(rule.validate("d").isValid)
-        XCTAssertFalse(rule.validate("").isValid)
+        #expect(!rule.validate("d").isValid)
+        #expect(!rule.validate("").isValid)
 
         // Valid
-        XCTAssertEqual(rule.validate("a").value, "Option A")
-        XCTAssertEqual(rule.validate("b").value, "Option B")
-        XCTAssertEqual(rule.validate("c").value, "Option C")
+        #expect(rule.validate("a").value == "Option A")
+        #expect(rule.validate("b").value == "Option B")
+        #expect(rule.validate("c").value == "Option C")
 
         // Error message
-        XCTAssertEqual(ValidationError.invalidOption(option: "hello").localizedDescription, "invalid option hello")
+        #expect(ValidationError.invalidOption(option: "hello").localizedDescription == "invalid option hello")
     }
 
-    func testDotSyntax() {
+    @Test func dotSyntax() {
         let rule: some ValidationRule<String, String> = .anyOf(options: [("x", "X")])
-        XCTAssertTrue(rule.validate("x").isValid)
+        #expect(rule.validate("x").isValid)
     }
 }
