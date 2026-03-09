@@ -1,19 +1,24 @@
+@testable import ValidationKit
 import XCTest
-import ValidationKit
 
 class StringTests: XCTestCase {
-  func testHasPrefix() {
-    let validator = Validator<String, String>.hasPrefix("42")
+    func testHasPrefix() {
+        let rule = HasPrefixRule(prefix: "42")
 
-    // Invalid
-    XCTAssertFalse(validator.validate(input: "").isValid)
-    XCTAssertFalse(validator.validate(input: "hello").isValid)
+        // Invalid
+        XCTAssertFalse(rule.validate("").isValid)
+        XCTAssertFalse(rule.validate("hello").isValid)
 
-    // Valid
-    XCTAssertEqual(validator.validate(input: "4200").value, "4200")
-    XCTAssertEqual(validator.validate(input: "42").value, "42")
+        // Valid
+        XCTAssertEqual(rule.validate("4200").value, "4200")
+        XCTAssertEqual(rule.validate("42").value, "42")
 
-    // Error message
-    XCTAssertEqual(ValidationError.invalidPrefix(prefix: "hoi").localizedDescription, "must start with hoi")
-  }
+        // Error message
+        XCTAssertEqual(ValidationError.invalidPrefix(prefix: "hoi").localizedDescription, "must start with hoi")
+    }
+
+    func testDotSyntax() {
+        let rule: some ValidationRule<String, String> = .hasPrefix("AB")
+        XCTAssertTrue(rule.validate("ABC").isValid)
+    }
 }

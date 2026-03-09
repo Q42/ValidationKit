@@ -1,16 +1,22 @@
-// swift-tools-version:5.5
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version:5.9
 
 import PackageDescription
 
 let package = Package(
-  name: "ValidationKit",
-  defaultLocalization: "en",
-  products: [
-    .library(name: "ValidationKit", targets: ["ValidationKit"]),
-  ],
-  targets: [
-    .target(name: "ValidationKit", dependencies: [], resources: [.process("Resources")]),
-    .testTarget(name: "ValidationKitTests", dependencies: ["ValidationKit"]),
-  ]
+    name: "ValidationKit",
+    defaultLocalization: "en",
+    platforms: [
+      .macOS(.v14),
+      .iOS(.v17)
+    ],
+    products: [
+        .library(name: "ValidationKit", targets: ["ValidationKit"]),
+        .library(name: "ValidationKitUI", targets: ["ValidationKitUI"]),
+    ],
+    targets: [
+        .target(name: "ValidationKit", dependencies: [], resources: [.process("Resources")]),
+        .target(name: "ValidationKitUI", dependencies: ["ValidationKit"]),
+        .testTarget(name: "ValidationKitTests", dependencies: ["ValidationKit"]),
+        .testTarget(name: "ValidationKitUITests", dependencies: ["ValidationKitUI"]),
+    ]
 )

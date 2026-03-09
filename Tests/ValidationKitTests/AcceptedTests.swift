@@ -1,13 +1,17 @@
+@testable import ValidationKit
 import XCTest
-import ValidationKit
 
 class AcceptedTests: XCTestCase {
-  func testAccepted() {
-    let validator = Validator<Bool, Bool>.accepted
+    func testAccepted() {
+        let rule = AcceptedRule()
 
-    XCTAssertFalse(validator.validate(input: false).isValid)
-    XCTAssertTrue(validator.validate(input: true).isValid)
+        XCTAssertFalse(rule.validate(false).isValid)
+        XCTAssertTrue(rule.validate(true).isValid)
+        XCTAssertEqual(rule.validate(true).value, true)
+    }
 
-    XCTAssertEqual(validator.validate(input: true).value, true)
-  }
+    func testDotSyntax() {
+        let rule: some ValidationRule<Bool, Bool> = .accepted
+        XCTAssertTrue(rule.validate(true).isValid)
+    }
 }

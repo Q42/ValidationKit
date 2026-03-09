@@ -1,42 +1,52 @@
-//
-//  ValidationResult.swift
-//  ValidationKit
-//
-//  Created by Tim van Steenis on 02/12/2019.
-//  Copyright © 2019 Q42. All rights reserved.
-//
-
 import Foundation
 
+/// The result of validating input against a ``ValidationRule``.
+///
+/// A result is either ``valid(_:)`` with the validated output value,
+/// or ``invalid(_:)-swift.enum.case`` with one or more ``ValidationError``s.
 public enum ValidationResult<Value> {
-  case valid(Value)
-  case invalid(ValidationError)
+    /// Validation succeeded, producing the given value.
+    case valid(Value)
+    /// Validation failed with the given errors.
+    case invalid([ValidationError])
 }
 
 public extension ValidationResult {
-  /// The validation error, or nil if the value is valid
-  var error: ValidationError? {
-    if case let .invalid(error) = self {
-      return error
-    } else {
-      return nil
+    /// Convenience for creating an invalid result with a single error.
+    static func invalid(_ error: ValidationError) -> Self {
+        .invalid([error])
     }
-  }
 
-  var isValid: Bool {
-    if case .valid = self {
-      return true
-    } else {
-      return false
+    /// All validation errors, or an empty array if valid.
+    var errors: [ValidationError] {
+        if case let .invalid(errors) = self {
+            return errors
+        } else {
+            return []
+        }
     }
-  }
 
-  /// The validated value, or nil if the value is invalid
-  var value: Value? {
-    if case let .valid(value) = self {
-      return value
-    } else {
-      return nil
+    /// The first validation error, or nil if valid.
+    @available(*, deprecated, message: "Use 'errors' instead")
+    var error: ValidationError? {
+        errors.first
     }
-  }
+
+    /// Whether the validation passed.
+    var isValid: Bool {
+        if case .valid = self {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    /// The validated value, or nil if invalid.
+    var value: Value? {
+        if case let .valid(value) = self {
+            return value
+        } else {
+            return nil
+        }
+    }
 }
