@@ -4,7 +4,6 @@ import PackageDescription
 
 let package = Package(
     name: "ValidationKit",
-    defaultLocalization: "en",
     platforms: [
       .macOS(.v14),
       .iOS(.v17)
@@ -14,7 +13,7 @@ let package = Package(
         .library(name: "ValidationKitUI", targets: ["ValidationKitUI"]),
     ],
     targets: [
-        .target(name: "ValidationKit", dependencies: [], resources: [.process("Resources")]),
+        .target(name: "ValidationKit"),
         .target(name: "ValidationKitUI", dependencies: ["ValidationKit"]),
         .testTarget(name: "ValidationKitTests", dependencies: ["ValidationKit"]),
         .testTarget(name: "ValidationKitUITests", dependencies: ["ValidationKitUI"]),
