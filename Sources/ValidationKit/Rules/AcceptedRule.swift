@@ -2,8 +2,6 @@ import Foundation
 
 /// Validates that a boolean value is true.
 public struct AcceptedRule: ValidationRule, Sendable {
-    public init() {}
-
     public func validate(_ input: Bool) -> ValidationResult<Bool> {
         if input {
             return .valid(input)

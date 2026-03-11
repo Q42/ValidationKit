@@ -4,7 +4,7 @@ import Foundation
 public struct HasPrefixRule: ValidationRule, Sendable {
     let prefix: String
 
-    public init(prefix: String) {
+    init(prefix: String) {
         self.prefix = prefix
     }
 

@@ -13,7 +13,7 @@ public struct EitherRule<First: ValidationRule, Second: ValidationRule>: Validat
     let second: Second
 
     /// Creates an either rule from two rules.
-    public init(first: First, second: Second) {
+    init(first: First, second: Second) {
         self.first = first
         self.second = second
     }

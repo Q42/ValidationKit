@@ -4,7 +4,7 @@ import Foundation
 public struct MinLengthRule: ValidationRule, Sendable {
     let length: Int
 
-    public init(length: Int) {
+    init(length: Int) {
         self.length = length
     }
 

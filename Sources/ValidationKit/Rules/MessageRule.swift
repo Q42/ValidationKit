@@ -8,7 +8,7 @@ public struct MessageRule<Wrapped: ValidationRule>: ValidationRule {
     let message: String
 
     /// Creates a message rule that wraps the given rule with a custom error message.
-    public init(wrapped: Wrapped, message: String) {
+    init(wrapped: Wrapped, message: String) {
         self.wrapped = wrapped
         self.message = message
     }

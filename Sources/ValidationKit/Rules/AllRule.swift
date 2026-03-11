@@ -6,7 +6,7 @@ public struct AllRule<Value>: ValidationRule {
     let rules: [any ValidationRule<Value, Value>]
 
     /// Creates a rule that runs all the given rules and collects their errors.
-    public init(rules: [any ValidationRule<Value, Value>]) {
+    init(rules: [any ValidationRule<Value, Value>]) {
         self.rules = rules
     }
 

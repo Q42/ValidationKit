@@ -35,7 +35,7 @@ public final class FieldValidation<Rule: ValidationRule> {
     }
 
     /// Schedule a debounced validation. Cancels any pending debounce.
-    public func validateDebounced(_ input: Rule.Input) {
+    func validateDebounced(_ input: Rule.Input) {
         debounceTask?.cancel()
         debounceTask = Task { [debounceInterval] in
             try? await Task.sleep(for: debounceInterval)

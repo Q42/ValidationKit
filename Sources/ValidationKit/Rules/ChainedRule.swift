@@ -13,7 +13,7 @@ public struct ChainedRule<First: ValidationRule, Second: ValidationRule>: Valida
     let second: Second
 
     /// Creates a chained rule from two rules.
-    public init(first: First, second: Second) {
+    init(first: First, second: Second) {
         self.first = first
         self.second = second
     }

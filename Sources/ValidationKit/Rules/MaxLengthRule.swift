@@ -4,7 +4,7 @@ import Foundation
 public struct MaxLengthRule: ValidationRule, Sendable {
     let length: Int
 
-    public init(length: Int) {
+    init(length: Int) {
         self.length = length
     }
 

@@ -4,7 +4,7 @@ import Foundation
 public struct AnyOfRule<Result>: ValidationRule {
     let options: [(String, Result)]
 
-    public init(options: [(String, Result)]) {
+    init(options: [(String, Result)]) {
         self.options = options
     }
 

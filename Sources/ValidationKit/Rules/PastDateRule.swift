@@ -2,8 +2,6 @@ import Foundation
 
 /// Validates that a date is in the past.
 public struct PastDateRule: ValidationRule, Sendable {
-    public init() {}
-
     public func validate(_ input: Date) -> ValidationResult<Date> {
         if input < Date() {
             return .valid(input)

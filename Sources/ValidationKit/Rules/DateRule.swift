@@ -4,7 +4,7 @@ import Foundation
 public struct DateRule: ValidationRule {
     let formatter: DateFormatter
 
-    public init(formatter: DateFormatter) {
+    init(formatter: DateFormatter) {
         self.formatter = formatter
     }
 
