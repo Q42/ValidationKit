@@ -1,5 +1,5 @@
 import SwiftUI
-@testable import ValidationKit
+import ValidationKit
 
 /// Observable per-field validation state.
 ///
@@ -9,11 +9,13 @@ import SwiftUI
 @MainActor
 public final class FieldValidation<Rule: ValidationRule> {
     /// The validation rule applied to this field.
-    public let rule: Rule
+    let rule: Rule
     /// The most recent validation result, or `nil` if the field has not been validated yet.
     public private(set) var result: ValidationResult<Rule.Output>?
+    /// The errors from the most recent validation, or an empty array if valid or not yet validated.
+    public var errors: [ValidationError] { result?.errors ?? [] }
     /// The delay before debounced validation fires. Defaults to 2 seconds.
-    public var debounceInterval: Duration = .seconds(2)
+    let debounceInterval: Duration = .seconds(2)
 
     private var debounceTask: Task<Void, Never>?
 

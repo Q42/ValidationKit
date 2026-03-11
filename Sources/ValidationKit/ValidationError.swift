@@ -15,6 +15,10 @@ public struct ValidationError: Error, LocalizedError, Equatable, Hashable {
     }
 }
 
+extension ValidationError: Identifiable {
+    public var id: Self { self }
+}
+
 // MARK: - Built-in error constants
 
 public extension ValidationError {

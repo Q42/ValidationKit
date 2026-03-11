@@ -26,12 +26,6 @@ public extension ValidationResult {
         }
     }
 
-    /// The first validation error, or nil if valid.
-    @available(*, deprecated, message: "Use 'errors' instead")
-    var error: ValidationError? {
-        errors.first
-    }
-
     /// Whether the validation passed.
     var isValid: Bool {
         if case .valid = self {
